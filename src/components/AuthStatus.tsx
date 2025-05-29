@@ -1,25 +1,34 @@
-import { Button } from 'react-bootstrap';
-import { useGoogleAuth } from '@/hooks/useGoogleAuth';
-import { useAuthStore } from '@/stores/authStore';
+import { Button } from 'react-bootstrap'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 export default function AuthStatus() {
-    const { login, logout, isAuthenticated } = useGoogleAuth();
-    const profile = useAuthStore((s) => s.profile);
+    const user = useAuthStore((s) => s.user)
+    const setUser = useAuthStore((s) => s.setUser)
+    const clearAuth = useAuthStore((s) => s.clearAuth)
+
+    if (!user) {
+        return (
+            <Button
+                variant="outline-light"
+                onClick={() =>
+                    setUser({
+                        id: 'demo-user',
+                        email: 'demo@example.com',
+                        name: 'Demo User',
+                    })
+                }
+            >
+                Sign In
+            </Button>
+        )
+    }
 
     return (
-        <div className="d-flex align-items-center gap-2">
-            {isAuthenticated && profile ? (
-                <>
-                    <span className="text-light small">Logged in as {profile.name}</span>
-                    <Button onClick={logout} variant="outline-light" size="sm">
-                        Logout
-                    </Button>
-                </>
-            ) : (
-                <Button onClick={login} variant="outline-light" size="sm">
-                    Login
-                </Button>
-            )}
+        <div className="d-flex align-items-center gap-2 text-light">
+            <span>{user.email}</span>
+            <Button variant="outline-light" size="sm" onClick={clearAuth}>
+                Sign Out
+            </Button>
         </div>
-    );
+    )
 }
