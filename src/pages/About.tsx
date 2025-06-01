@@ -1,3 +1,3 @@
 export default function About() {
-    return <div className="p-4">ℹ️ About SnapShoki</div>
+    return <div className="p-4 page-fade">ℹ️ About SnapShoki</div>
 }

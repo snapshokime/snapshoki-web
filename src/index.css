@@ -1,0 +1,24 @@
+.page-fade {
+    animation: fadeIn 300ms ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animate background and text color transitions app-wide */
+html {
+    transition: background-color 300ms ease,
+    color 300ms ease;
+}
+
+/* Optional: add to body for even smoother coverage */
+body {
+    transition: background-color 300ms ease,
+    color 300ms ease;
+}

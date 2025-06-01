@@ -1,3 +1,3 @@
 export default function Contact() {
-    return <div className="p-4">📬 Contact Us</div>
+    return <div className="p-4 page-fade">📬 Contact Us</div>
 }
