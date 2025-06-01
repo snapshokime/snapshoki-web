@@ -1,32 +1,31 @@
 import { Button } from 'react-bootstrap'
 import { useAuthStore } from '@/stores/useAuthStore'
+import {useStartAuth} from "@/hooks/useStartAuth";
 
 export default function AuthStatus() {
     const user = useAuthStore((s) => s.user)
-    const setUser = useAuthStore((s) => s.setUser)
-    const clearAuth = useAuthStore((s) => s.clearAuth)
-
+    const { startAuth, signOut } = useStartAuth()
     if (!user) {
         return (
-            <Button
-                variant="outline-light"
-                onClick={() =>
-                    setUser({
-                        id: 'demo-user',
-                        email: 'demo@example.com',
-                        name: 'Demo User',
-                    })
-                }
-            >
-                Sign In
+            <Button variant="outline-light" onClick={startAuth}>
+                Sign in with Google
             </Button>
         )
     }
 
     return (
         <div className="d-flex align-items-center gap-2 text-light">
-            <span>{user.email}</span>
-            <Button variant="outline-light" size="sm" onClick={clearAuth}>
+            {user.picture && (
+                <img
+                    src={user.picture}
+                    alt="Profile"
+                    className="rounded-circle"
+                    width={32}
+                    height={32}
+                />
+            )}
+            <span>{user.name ?? user.email}</span>
+            <Button variant="outline-light" size="sm" onClick={signOut}>
                 Sign Out
             </Button>
         </div>

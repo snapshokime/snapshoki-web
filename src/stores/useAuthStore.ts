@@ -1,21 +1,12 @@
-import { create, type StateCreator } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
-
-/**
- * Represents a signed-in Google user.
- */
-export type AuthUser = {
-    id: string
-    email: string
-    name?: string
-    picture?: string
-}
+import {create, type StateCreator} from 'zustand'
+import {createJSONStorage, persist} from 'zustand/middleware'
+import {UserEntity} from "@/entities/UserEntity";
 
 /**
  * Auth state — stores Google session and access token.
  */
 interface State {
-    user: AuthUser | null
+    user: UserEntity | null
     accessToken: string | null
 }
 
@@ -23,7 +14,7 @@ interface State {
  * Actions for updating auth state.
  */
 interface Actions {
-    setUser: (user: AuthUser | null) => void
+    setUser: (user: UserEntity | null) => void
     setAccessToken: (token: string | null) => void
     clearAuth: () => void
 }
@@ -37,8 +28,8 @@ type Store = State & Actions
 
 const stateCreator: StateCreator<Store> = (set) => ({
     ...initialState,
-    setUser: (user) => set({ user }),
-    setAccessToken: (accessToken) => set({ accessToken }),
+    setUser: (user) => set({user}),
+    setAccessToken: (accessToken) => set({accessToken}),
     clearAuth: () => set(initialState),
 })
 
